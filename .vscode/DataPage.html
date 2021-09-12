@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Leaflet Step-1</title>
+      
+        <!-- Leaflet CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin="" />
+      
+        <!-- Our CSS -->
+        <link rel="stylesheet" type="text/css" href="static\css\style.css">
+      
+        <style>
+          .dropbtn {
+            z-index: 500;
+            background-color: #494949;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+          }
+          
+          .title{        
+                z-index: 500;
+                font-size: 50px;
+                color: Black;
+                text-align: center;
+              }
+        
+        
+          
+          .dropdown-content {
+            z-index: 500;
+      
+            display: none;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            background-color: #f1f1f1;
+            min-width: 120px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+          }
+          
+          .dropdown-content a {
+            z-index: 500;
+      
+            color: black;
+            padding: 8px 12px;
+            text-decoration: none;
+            display: block;
+          }
+          
+          .dropdown-content a:hover {background-color: #ddd;}
+          
+          .title:hover .dropdown-content {
+            z-index: 500;
+      
+            display: block;}
+          
+          .title:hover .dropbtn {background-color: #0099ff;}
+          </style>
+        
+      </head>
+
+<body>
+
+    <div class="title">
+        <button class="dropbtn">DropDown</button>
+        <div class="dropdown-content">
+          <p>
+            <a href="C:\Users\Beep Boop\Documents\GitHub\Project-3\.vscode\DataPage.html" target="_self">Table</a>
+            <a href="C:\Users\Beep Boop\Documents\GitHub\Project-3\.vscode\index.html" target="_self">Map</a>
+            </p>
+        </div>
+      </div>
+
+</body>
+
+<h1 class = "title">Top 100!</h1>
+<hr/>
+
+
+
+</html>

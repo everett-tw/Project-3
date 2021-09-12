@@ -1,80 +1,114 @@
-var myMap = L.map("map", {
-    center: [37.0409472, -122.028032],
-    zoom: 5
-  });
-  
-  // Adding the tile layer
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(myMap);
-  
-  // Use this link to get the GeoJSON data.
-  var link = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-01-02";
+<!DOCTYPE html>
+<html lang="en">
 
-  function chooseradius(mag){
-      return mag*7;
-  }
 
-  function choosecolor(coord){
-      if (coord >= 200) return "red";  
-      else if (coord >= 150) return "orange";
-      else if (coord >= 100) return "yellow";
-      else if (coord >= 50){ return "purple";}
-      else if (coord >= 0) return "green";
-      else return "blue";
-  }
 
-  // Getting our GeoJSON data
-d3.json(link).then(function(data) {
-    // Creating a GeoJSON layer with the retrieved data
-    L.geoJson(data, {
-      // Passing in our style object
-      pointToLayer: function(feature, latlng){
-        return L.circleMarker(latlng,{
-            radius: chooseradius(feature.properties.mag),
-            fillColor: choosecolor(feature.geometry.coordinates[2]),
-            weight: 1, 
-            opacity: 1,
-            fillOpacity: 1,
-            bindPopup: 'hello world',
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Leaflet Step-1</title>
 
-        }); 
-      },
-      onEachFeature: function(feature, layer){
-          layer.bindPopup("info: " + feature.properties.title + 
-          '. Depth: ' + feature.geometry.coordinates[2]);
-      }
-    }).addTo(myMap);
-    var legend = L.control({
-        position: "bottomright"
-      });
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="static\css\style.css">
+
+  <style>
+    .dropbtn {
+      z-index: 500;
+      background-color: #494949;
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+    }
     
-      legend.onAdd = function(data) {
-        var div = L.DomUtil.create("div", "info legend");
-    
-        var colors = [
-          "red",
-          "orange",
-          "yellow",
-          "purple",
-          "green",
-          "blue",
-        ];
-
-        var grade = [200,150,100,50,0]
-    
-        // Looping through
-        for (var i = 0; i < colors.length; i++) {
-            if(i == 5){
-                div.innerHTML +=
-                '<i style="background:' + colors[i] + '">'+ '>' + grade[i-1] + '=' + colors[i] + '</i> <br>';
-            }else{
-             div.innerHTML +=
-                '<i style="background:' + colors[i] + '">'+ '<' + grade[i] + '=' + colors[i] + '</i> <br>';
-            }
+    .title{        
+          z-index: 500;
+          background-color: rgb(108, 109, 109);
+          font-size: 20px;
+          color: white;
         }
-        return div;
-      };
+  
+  
     
-      // Finally, we our legend to the map.
-      legend.addTo(myMap);
+    .dropdown-content {
+      z-index: 500;
+
+      display: none;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      background-color: #f1f1f1;
+      min-width: 120px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    
+    .dropdown-content a {
+      z-index: 500;
+
+      color: black;
+      padding: 8px 12px;
+      text-decoration: none;
+      display: block;
+    }
+    
+    .dropdown-content a:hover {background-color: #ddd;}
+    
+    .title:hover .dropdown-content {
+      z-index: 500;
+
+      display: block;}
+    
+    .title:hover .dropbtn {background-color: #0099ff;}
+    </style>
+  
+</head>
+
+<body>
+
+  <div class="title">
+    <button class="dropbtn">DropDown</button>
+    <div class="dropdown-content">
+      <p>
+        <a href="C:\Users\Beep Boop\Documents\GitHub\Project-3\.vscode\DataPage.html" target="_self">Data</a>
+        <a href="C:\Users\Beep Boop\Documents\GitHub\Project-3\.vscode\index.html" target="_self">Visuals</a>
+        </p>
+    </div>
+  </div>
+  
+
+  <!-- The div that holds our map -->
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+  <!-- D3 JavaScript -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <!-- API key -->
+  <script type="text/javascript" src="static/js/config.js"></script>
+  <!-- Our JavaScript -->
+  <script type="text/javascript" src="static/js/logic.js"></script>
+
+</body>
+
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+</html>
